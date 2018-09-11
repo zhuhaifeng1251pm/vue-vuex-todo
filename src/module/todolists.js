@@ -64,9 +64,9 @@ const getters = {
 
 }
 
-const number = {
+const todolists = {
     state,
     mutations, getters,
     actions
 }
-export default number
+export default todolists

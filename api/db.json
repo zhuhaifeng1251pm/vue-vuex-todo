@@ -13,7 +13,7 @@
     {
       "id": "789",
       "todoText": "789ghi",
-      "isComplete": true
+      "isComplete": false
     }
   ]
 }
