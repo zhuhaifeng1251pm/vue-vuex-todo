@@ -1,7 +1,8 @@
 const state = { type: "all" };
 const mutations = {
     changetype(state, str) {
-        state.type = str;
+        if(state.type!==str){
+        state.type = str;}
     }
 };
 

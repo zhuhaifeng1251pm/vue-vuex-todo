@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.$store.state.todolists.todolists.length" class="main">
+    <div v-if="this.$store.getters.activeNum" class="main">
         <ul>
             <li v-for="todo in newTodolists" :key="todo.id">
                 <div class="check-box"><input :id="`${todo.id}in`" type="checkbox" v-model="todo.isComplete">
@@ -35,11 +35,12 @@ export default {
             return this.$store.state.todolists.todolists.filter(t => t.isComplete === false).length;
         },
         newTodolists() {
-            return this.$store.state.type.type === "active"
-                ? this.$store.state.todolists.todolists.filter(t => t.isComplete === false)
-                : this.$store.state.type.type === "completed"
-                    ? this.$store.state.todolists.todolists.filter(t => t.isComplete === true)
-                    : this.$store.state.type.type === "all" ? this.$store.state.todolists.todolists : this.$store.state.todolists.todolists;
+            // return this.$store.state.type.type === "active"
+            //     ? this.$store.state.todolists.todolists.filter(t => t.isComplete === false)
+            //     : this.$store.state.type.type === "completed"
+            //         ? this.$store.state.todolists.todolists.filter(t => t.isComplete === true)
+            //         : this.$store.state.type.type === "all" ? this.$store.state.todolists.todolists : this.$store.state.todolists.todolists;
+            return this.$store.getters.showNewTodolists(this.$store.state.type.type )
         }
     }
 };
