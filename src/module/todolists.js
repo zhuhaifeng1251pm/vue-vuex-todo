@@ -44,6 +44,11 @@ const actions = {
                 commit('deleteAll',ele.id)
             }).catch(err=>{})
         });
+    },
+    increments({commit},obj) {
+        axios.post(`http://localhost:3008/todolists`, obj).then(res => {
+            commit('increments',obj)
+        }).catch(err=>{})
     }
 
 }

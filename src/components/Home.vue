@@ -24,7 +24,7 @@ export default {
     handleInput() {
         const obj ={ id: shortid(), todoText: this.$store.state.todo.todo, isComplete: false }
         if(this.$store.state.todo.todo.trim()){
-      this.$store.commit('increments',obj)}
+      this.$store.dispatch('increments',obj)}
       else{alert("输入的字符不符合要求，请重新输入")}
       this.$store.commit('todoClear')
     },
