@@ -1,0 +1,19 @@
+{
+  "todolists": [
+    {
+      "id": "123",
+      "todoText": "123abc",
+      "isComplete": false
+    },
+    {
+      "id": "456",
+      "todoText": "456def",
+      "isComplete": false
+    },
+    {
+      "id": "789",
+      "todoText": "789ghi",
+      "isComplete": true
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 <template>
     <div v-if="this.$store.getters.activeNum" class="main">
         <ul>
-            <li v-for="todo in newTodolists" :key="todo.id">
-                <div class="check-box"><input :id="`${todo.id}in`" type="checkbox" v-model="todo.isComplete">
+            <li v-for="todo in newTodolists" :key="todo.id"  @click="hangleClick(todo.id,todo.isComplete)">
+                <div class="check-box"><input :id="`${todo.id}in`" type="checkbox" v-model="todo.isComplete" >
                     <label :for="`${todo.id}in`" :style="`text-decoration:${todo.isComplete?'line-through':'none'}`">{{todo.todoText}}</label>
                 </div>
-                <button class="delete-btn" @click="$store.commit('deleteId',todo.id)"></button>
+                <button class="delete-btn" @click.stop="handleDelId(todo.id)"></button>
             </li>
         </ul>
 
@@ -17,19 +17,23 @@
                 <span @click="$store.commit('changetype','completed')" :class="{selected:this.$store.state.type.type==='completed'}">Completed</span>
             </div>
             <!-- <span>{{newTodolists}}</span> -->
-            <button class="clear" @click="$store.commit('deleteAll')" :style="`display:${completedEvent?'block':'none'}`">ClearCompleted</button>
+            <button class="clear" @click="handleDelAll(completedEvents)" :style="`display:${completedEvent?'block':'none'}`">ClearCompleted</button>
         </footer>
 
     </div>
 
 </template>
 <script>
+import axios from 'axios';
 export default {
     name: "eventLists",
     props: [  "type", "changeType"],
     computed: {
         completedEvent() {
             return this.$store.state.todolists.todolists.filter(t => t.isComplete === true).length;
+        },
+        completedEvents(){
+            return this.$store.state.todolists.todolists.filter(t => t.isComplete === true)
         },
         leaveEvent() {
             return this.$store.state.todolists.todolists.filter(t => t.isComplete === false).length;
@@ -42,10 +46,20 @@ export default {
             //         : this.$store.state.type.type === "all" ? this.$store.state.todolists.todolists : this.$store.state.todolists.todolists;
             return this.$store.getters.showNewTodolists(this.$store.state.type.type )
         }
+    },methods:{
+        hangleClick(id,isComplete){
+           this.$store.dispatch('changeIscompleted',{id:id,isComplete:isComplete})
+        },
+        handleDelId(id){
+            this.$store.dispatch('deleteId',{id:id})
+        },handleDelAll(arr){
+            this.$store.dispatch('deleteAll',arr)
+        }
     }
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
+@import '../assets/style.scss';
 .main {
     width: 100%;
     margin: 0 auto;
@@ -124,7 +138,7 @@ span {
     line-height: 30px;
     border-radius: 5px;
     background-color: #1992ff;
-    color: #fff;
+    color: $color;
 }
 .selected {
     border-color: rgba(175, 47, 47, 0.2);
